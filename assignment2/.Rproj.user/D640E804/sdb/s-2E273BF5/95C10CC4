@@ -1,0 +1,16 @@
+{
+    "contents" : "## Matrix inversion is usually a costly computation and there may \n## be some benefit to caching the inverse of a matrix rather than \n## computing it repeatedly.  \n## The following pair of functions is to cache the inverse of \n## a matrix.\n\n##  makeCacheMatrix : This function creates \n##  a special \"matrix\" object that can cache its inverse.\n\nmakeCacheMatrix <- function(x = matrix()) {\n  \n  i <- NULL \n    \n  set  <- function(y){ \n      x <<- y \n      i <<- NULL  \n  } \n  \n  get  <- function() x \n  \n  setinverse  <- function(inverse) i  <<- inverse \n  \n  getinverse  <- function() i \n  \n  list(set= set, get = get,  \n       setinverse = setinverse,  \n       getinverse = getinverse) \n}\n\n\n##cacheSolve : This function computes the inverse \n## of the special \"matrix\" returned by  makeCacheMatrix above.\n## If the inverse has already been calculated (and the matrix \n## has not changed), then  cacheSolve  should retrieve the \n## inverse from the cache\n##\n## Return a matrix that is the inverse of 'x'\n\ncacheSolve <- function(x, ...) {  \n          \n  i  <- x$getinverse() \n  \n  if (!is.null(i)){ \n      \n      message(\"getting cached data\") \n      \n      return(i) \n      \n    }\n   \n  data  <- x$get() \n  \n  i  <- solve(data, ...) \n  \n  x$setinverse(i) \n  \n  i\n    \n}\n\n## Testing results from Rstudio:\n\n## > mat <- matrix(data = c(8,1,5,6), nrow = 2, ncol = 2)\n## > mat2 <- makeCacheMatrix(mat)\n## > cacheSolve(mat2)\n## [,1]       [,2]\n## [1,]  0.13953488 -0.1162791\n## [2,] -0.02325581  0.1860465\n## > cacheSolve(mat2)\n## getting cached data\n## [,1]       [,2]\n## [1,]  0.13953488 -0.1162791\n## [2,] -0.02325581  0.1860465\n## > cacheSolve(mat2)\n## getting cached data\n## [,1]       [,2]\n## [1,]  0.13953488 -0.1162791\n## [2,] -0.02325581  0.1860465\n## > ",
+    "created" : 1411330993120.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "4045184134",
+    "id" : "95C10CC4",
+    "lastKnownWriteTime" : 1411333639,
+    "path" : "~/GitHub/ProgrammingAssignment2/cachematrix.R",
+    "project_path" : null,
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
